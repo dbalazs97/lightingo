@@ -70,7 +70,7 @@ jobs:
           at: .
       - run:
           name: Build production frontend
-          command: yarn build --no-progress --prod --buildOptimizer --aot --optimization --subresourceIntegrity
+          command: yarn build --no-progress --prod --build-optimizer --aot --optimization --subresource-integrity
       - persist_to_workspace:
           root: .
           paths:
