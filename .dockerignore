@@ -1,0 +1,6 @@
+.gitignore
+.husky
+.git
+node_modules
+src
+e2e

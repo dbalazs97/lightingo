@@ -89,9 +89,9 @@ jobs:
           command: |
             echo "$GITHUB_DOCKER_PASS" | docker login docker.pkg.github.com -u "$GITHUB_DOCKER_USER" --password-stdin
             if [ "${CIRCLE_BRANCH}" == "main" ]; then
-                docker build -t docker.pkg.github.com/$GITHUB_DOCKER_USER/$GITHUB_REPO/caff-frontend:latest .
-                docker push docker.pkg.github.com/$GITHUB_DOCKER_USER/$GITHUB_REPO/caff-frontend:latest
+                docker build -t docker.pkg.github.com/$GITHUB_DOCKER_USER/$GITHUB_REPO/lightingo:latest .
+                docker push docker.pkg.github.com/$GITHUB_DOCKER_USER/$GITHUB_REPO/lightingo:latest
             else
-                docker build -t docker.pkg.github.com/$GITHUB_DOCKER_USER/$GITHUB_REPO/caff-frontend:$CIRCLE_SHA1 .
-                docker push docker.pkg.github.com/$GITHUB_DOCKER_USER/$GITHUB_REPO/caff-frontend:$CIRCLE_SHA1
+                docker build -t docker.pkg.github.com/$GITHUB_DOCKER_USER/$GITHUB_REPO/lightingo:$CIRCLE_SHA1 .
+                docker push docker.pkg.github.com/$GITHUB_DOCKER_USER/$GITHUB_REPO/lightingo:$CIRCLE_SHA1
             fi
