@@ -1,0 +1,97 @@
+version: 2
+workflows:
+  version: 2
+  build_frontend:
+    jobs:
+      - install_frontend
+      - lint_frontend:
+          requires:
+            - install_frontend
+      - test_frontend:
+          requires:
+            - install_frontend
+      - build_frontend:
+          requires:
+            - install_frontend
+      - docker_frontend:
+          requires:
+            - install_frontend
+            - lint_frontend
+            - test_frontend
+            - build_frontend
+
+jobs:
+  install_frontend:
+    docker:
+      - image: circleci/node:lts
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "yarn.lock" }}
+            - v1-dependencies-
+      - run:
+          name: Install frontend dependencies
+          command: yarn install --cache-folder ~/.cache/yarn
+      - save_cache:
+          key: v1-dependencies-{{ checksum "yarn.lock" }}
+          paths:
+            - ~/.cache/yarn
+      - persist_to_workspace:
+          root: .
+          paths:
+            - node_modules
+  test_frontend:
+    docker:
+      - image: circleci/node:12-browsers
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run:
+          name: Test frontend
+          command: yarn test --no-watch --no-progress --browsers=ChromeHeadlessCI
+  lint_frontend:
+    docker:
+      - image: circleci/node:lts
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run:
+          name: Lint frontend
+          command: yarn lint
+  build_frontend:
+    docker:
+      - image: circleci/node:lts
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - run:
+          name: Build production frontend
+          command: yarn build --no-progress --prod --buildOptimizer --aot --optimization --subresourceIntegrity
+      - persist_to_workspace:
+          root: .
+          paths:
+            - dist
+            - Dockerfile
+  docker_frontend:
+    docker:
+      - image: circleci/node:lts
+    steps:
+      - checkout
+      - attach_workspace:
+          at: .
+      - setup_remote_docker
+      - run:
+          name: Build Docker image
+          command: |
+            echo "$GITHUB_DOCKER_PASS" | docker login docker.pkg.github.com -u "$GITHUB_DOCKER_USER" --password-stdin
+            if [ "${CIRCLE_BRANCH}" == "main" ]; then
+                docker build -t docker.pkg.github.com/$GITHUB_DOCKER_USER/$GITHUB_REPO/caff-frontend:latest .
+                docker push docker.pkg.github.com/$GITHUB_DOCKER_USER/$GITHUB_REPO/caff-frontend:latest
+            else
+                docker build -t docker.pkg.github.com/$GITHUB_DOCKER_USER/$GITHUB_REPO/caff-frontend:$CIRCLE_SHA1 .
+                docker push docker.pkg.github.com/$GITHUB_DOCKER_USER/$GITHUB_REPO/caff-frontend:$CIRCLE_SHA1
+            fi
