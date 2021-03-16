@@ -15,7 +15,8 @@
 		"lint:prettier": "prettier --list-different \"**/*{.js,.ts,.json,.css,.scss,.html}\"",
 		"lint:prettier-fix": "yarn lint:prettier --write",
 		"e2e": "ng e2e",
-		"postinstall": "husky install && ngcc"
+		"postinstall": "husky install && ngcc",
+		"generate-icons": "svg-generator"
 	},
 	"private": true,
 	"dependencies": {
@@ -27,6 +28,14 @@
 		"@angular/platform-browser": "~11.2.1",
 		"@angular/platform-browser-dynamic": "~11.2.1",
 		"@angular/router": "~11.2.1",
+		"@ngneat/svg-icon": "2.3.0",
+		"@ngrx/effects": "^11.0.1",
+		"@ngrx/router-store": "^11.0.1",
+		"@ngrx/store": "^11.0.1",
+		"@ngrx/store-devtools": "^11.0.1",
+		"primeflex": "^2.0.0",
+		"primeicons": "^4.1.0",
+		"primeng": "^11.2.3",
 		"rxjs": "~6.6.0",
 		"tslib": "^2.0.0",
 		"zone.js": "~0.11.3"
@@ -38,6 +47,7 @@
 		"@commitlint/cli": "^11.0.0",
 		"@commitlint/config-conventional": "^11.0.0",
 		"@ngneat/spectator": "^7.0.0",
+		"@ngneat/svg-generator": "^1.0.0",
 		"@types/jasmine": "~3.6.0",
 		"@types/node": "^12.11.1",
 		"codelyzer": "^6.0.0",
@@ -50,6 +60,7 @@
 		"karma-jasmine": "~4.0.0",
 		"karma-jasmine-html-reporter": "^1.5.0",
 		"lint-staged": "^10.5.4",
+		"ng-mocks": "^11.9.1",
 		"prettier": "^2.2.1",
 		"protractor": "~7.0.0",
 		"stylelint": "^13.10.0",
@@ -66,7 +77,21 @@
 			"stylelint --syntax=scss"
 		],
 		"*{.ts,.js,.json,.css,.scss,.html}": [
-			"prettier --config .prettierrc.json --list-different \"**/*{.js,.ts,.json,.css,.scss,.html}\""
+			"prettier --config .prettierrc.json --ignore-path .prettierignore --list-different \"**/*{.js,.ts,.json,.css,.scss,.html}\""
 		]
+	},
+	"svgGenerator": {
+		"outputPath": "./src/assets/svg",
+		"prefix": "app",
+		"srcPath": "./src/assets/img",
+		"outputDirectory": "./src/assets/svg",
+		"svgoConfig": {
+			"plugins": [
+				{
+					"removeDimensions": true,
+					"cleanupAttrs": true
+				}
+			]
+		}
 	}
 }

@@ -47,6 +47,12 @@
 				"named": "never"
 			}
 		},
+		"trailing-comma": {
+			"options": {
+				"multiline": "always",
+				"singleline": "always"
+			}
+		},
 		"typedef": [true, "call-signature"],
 		"typedef-whitespace": {
 			"options": [
