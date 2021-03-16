@@ -50,7 +50,7 @@
 		"trailing-comma": {
 			"options": {
 				"multiline": "always",
-				"singleline": "always"
+				"singleline": "never"
 			}
 		},
 		"typedef": [true, "call-signature"],
