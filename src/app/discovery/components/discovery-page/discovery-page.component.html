@@ -1,0 +1,76 @@
+<ng-container *ngIf="connectionState$ | async as state">
+	<ng-container *ngIf="state[0] === 0 && state[1] === 0">
+		<p class="p-d-flex p-flex-column p-ai-center p-jc-center">
+			<i class="pi pi-spinner pi-spin p-mb-4" [style.fontSize]="'64px'"></i>
+			Loading...
+		</p>
+	</ng-container>
+	<ng-container *ngIf="state[0] === 2">
+		<div class="p-d-flex p-ai-center">
+			<svg-icon key="tabbar-home-no-con" color="white" fontSize="64px" class="p-mr-2"></svg-icon>
+			<h1 class="p-my-0">Hue Bridge not found on network</h1>
+		</div>
+		<p>
+			We can not find your Philips Hue device on the local network. <br />
+			Please check whether it is connected to you router. <br /><br />
+			If you think it is connected please provide its IP address below:
+		</p>
+		<div class="p-grid p-fluid">
+			<div class="p-field p-col-3 p-d-inline-flex p-ai-baseline">
+				<p-inputNumber inputId="integeronly" [min]="0" [max]="255"></p-inputNumber>
+				<div class="p-ml-3">.</div>
+			</div>
+			<div class="p-field p-col-3 p-d-inline-flex p-ai-baseline">
+				<p-inputNumber inputId="integeronly" [min]="0" [max]="255"></p-inputNumber>
+				<div class="p-ml-3">.</div>
+			</div>
+			<div class="p-field p-col-3 p-d-inline-flex p-ai-baseline">
+				<p-inputNumber inputId="integeronly" [min]="0" [max]="255"></p-inputNumber>
+				<div class="p-ml-3">.</div>
+			</div>
+			<div class="p-field p-col-3 p-d-inline-flex p-ai-baseline">
+				<p-inputNumber inputId="integeronly" [min]="0" [max]="255"></p-inputNumber>
+				<div class="p-ml-3"></div>
+			</div>
+		</div>
+	</ng-container>
+
+	<ng-container *ngIf="state[1] === 2 && !state[2]">
+		<div class="p-d-flex p-ai-center">
+			<svg-icon key="uicontrols-error" color="white" fontSize="64px" class="p-mr-2"></svg-icon>
+			<h1 class="p-my-0">Can not connect to Hue Bridge</h1>
+		</div>
+
+		<p>
+			We can not connect to your Philips Hue device on the local network. <br />
+			Please check whether it is connected to you router.
+		</p>
+
+		<div class="p-grid p-mt-3">
+			<div class="p-col-12 p-md-6">
+				<button pButton label="Try again" (click)="tryAgainClicked()"></button>
+			</div>
+			<div class="p-col-12 p-md-6">
+				<button pButton class="p-button-secondary" label="Find device again"></button>
+			</div>
+		</div>
+	</ng-container>
+
+	<ng-container *ngIf="state[1] === 2 && state[2]">
+		<div class="p-d-flex p-ai-center">
+			<svg-icon key="devices-bridges-v-2" color="white" fontSize="64px" class="p-mr-2"></svg-icon>
+			<h1 class="p-my-0">Setup Hue Bridge</h1>
+		</div>
+		<p class="p-d-flex p-flex-column p-ai-center p-jc-center">
+			<i class="pi pi-spinner pi-spin p-mb-4" [style.fontSize]="'64px'"></i>
+			Please press the button on the Philips Hue Bridge to pair with this device.
+		</p>
+	</ng-container>
+
+	<ng-container *ngIf="state[0] === 1 && state[1] === 1">
+		<div class="p-d-flex p-ai-center">
+			<svg-icon key="devices-bridges-v-2" color="white" fontSize="64px" class="p-mr-2"></svg-icon>
+			<h1 class="p-my-0">Successfully connected to Hue Bridge</h1>
+		</div>
+	</ng-container>
+</ng-container>
