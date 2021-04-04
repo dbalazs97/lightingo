@@ -7,5 +7,9 @@ import { MenuItem } from 'primeng/api';
 	styleUrls: ['./toolbar.component.scss'],
 })
 export class ToolbarComponent {
-	public menuItems: MenuItem[] = [{ label: 'Lights' }, { label: 'Routines' }, { label: 'Settings' }];
+	public menuItems: MenuItem[] = [
+		{ label: 'Lights', routerLink: 'lights' },
+		{ label: 'Routines' },
+		{ label: 'Settings' },
+	];
 }
