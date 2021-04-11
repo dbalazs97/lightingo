@@ -1,6 +1,13 @@
 {
 	"extends": "stylelint-config-sass-guidelines",
 	"rules": {
-		"indentation": "tab"
+		"indentation": "tab",
+		"selector-pseudo-element-no-unknown": [
+			true,
+			{
+				"ignorePseudoElements": ["ng-deep"]
+			}
+		],
+		"order/properties-alphabetical-order": null
 	}
 }

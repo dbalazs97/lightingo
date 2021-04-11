@@ -1,0 +1,35 @@
+<p-accordion (onOpen)="reloadForCachedTab()">
+	<p-accordionTab>
+		<ng-template pTemplate="header">
+			<div class="p-d-flex p-jc-between p-ai-center p-col-12 p-pr-4">
+				<span>{{ light.name }}</span>
+				<p-inputSwitch
+					(click)="$event.stopPropagation()"
+					[formControl]="$any(form.get('switch'))"
+				></p-inputSwitch>
+			</div>
+		</ng-template>
+		<ng-template pTemplate="content">
+			<div class="p-m-3">
+				<div [ngStyle]="{ backgroundColor: colorAsString, borderRadius: '4px' }" class="p-col-12"></div>
+			</div>
+			<div class="p-d-flex p-flex-wrap">
+				<p-colorPicker
+					[formControl]="$any(form.get('color'))"
+					[inline]="true"
+					class="p-col-12 p-sm-6 p-md-4 p-d-flex p-jc-center"
+					format="hsb"
+				></p-colorPicker>
+				<div class="p-col-12 p-sm-6 p-md-4 p-d-flex p-jc-center p-ai-center">
+					Hue: {{ light.color.h }}°<br />
+					Saturation: {{ light.color.s }}%<br />
+					Brightness: {{ light.color.b }}%<br />
+					{{ colorAsString }}
+				</div>
+				<div class="p-col-12 p-md-4 p-d-flex p-jc-center p-ai-center">
+					<button label="Blink" pButton></button>
+				</div>
+			</div>
+		</ng-template>
+	</p-accordionTab>
+</p-accordion>
