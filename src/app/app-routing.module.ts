@@ -12,6 +12,11 @@ const routes: Routes = [
 		loadChildren: () => import('./lights/lights.module').then(m => m.LightsModule),
 		canActivate: [DiscoveredGuard],
 	},
+	{
+		path: '',
+		pathMatch: 'full',
+		redirectTo: 'lights',
+	},
 ];
 
 @NgModule({

@@ -1,5 +1,6 @@
 import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SvgIconsModule } from '@ngneat/svg-icon';
 import { Store } from '@ngrx/store';
 import { CardModule } from 'primeng/card';
@@ -20,6 +21,7 @@ import { SharedModule } from './shared/shared.module';
 		CoreModule,
 		SharedModule,
 		CardModule,
+		BrowserAnimationsModule,
 		SvgIconsModule.forRoot({
 			icons: philipsAssetsIcons,
 		}),

@@ -1,12 +1,22 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TrackByFunction } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Light } from '../../../core/model/domain/lights/Light';
+import { LightsPageService } from './lights-page.service';
 
 @Component({
 	selector: 'ltg-lights-page',
 	templateUrl: './lights-page.component.html',
 	styleUrls: ['./lights-page.component.scss'],
+	providers: [LightsPageService],
 })
 export class LightsPageComponent implements OnInit {
-	constructor() {}
+	public lights: Observable<Light[]> = this.lightsPageService.lights$;
 
-	ngOnInit(): void {}
+	constructor(private readonly lightsPageService: LightsPageService) {}
+
+	public trackBy: TrackByFunction<Light> = (index: number, light: Light) => light.id;
+
+	public ngOnInit(): void {
+		this.lightsPageService.loadPage();
+	}
 }

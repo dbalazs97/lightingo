@@ -8,7 +8,7 @@ import { MenuItem } from 'primeng/api';
 })
 export class ToolbarComponent {
 	public menuItems: MenuItem[] = [
-		{ label: 'Lights', routerLink: 'lights' },
+		{ label: 'Lights', routerLink: ['/lights'] },
 		{ label: 'Routines' },
 		{ label: 'Settings' },
 	];
