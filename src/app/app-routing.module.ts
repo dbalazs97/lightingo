@@ -13,6 +13,11 @@ const routes: Routes = [
 		canActivate: [DiscoveredGuard],
 	},
 	{
+		path: 'routines',
+		loadChildren: () => import('./routine/routine.module').then(m => m.RoutineModule),
+		canActivate: [DiscoveredGuard],
+	},
+	{
 		path: '',
 		pathMatch: 'full',
 		redirectTo: 'lights',

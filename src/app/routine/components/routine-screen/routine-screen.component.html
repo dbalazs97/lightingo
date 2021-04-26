@@ -1,0 +1,53 @@
+<h1>Active routines</h1>
+<p-card *ngIf="showItem">
+	<div class="p-d-flex p-ai-center">
+		<svg-icon key="routines-timers" size="xl" class="p-mr-2"></svg-icon>
+		Turn on <svg-icon key="rooms-living" class="p-mr-1 p-ml-1"></svg-icon> <b class="p-mr-1">Living room</b> lights
+		at {{ date | date: 'short' }}
+	</div>
+</p-card>
+
+<div *ngIf="!showItem" class="p-align-center">There are no active routines.</div>
+
+<p-divider></p-divider>
+<h1>Create new routine</h1>
+<h2>Event source</h2>
+<p-dropdown
+	class="routine-dropdown"
+	[options]="eventSources"
+	placeholder="Select event source"
+	optionLabel="name"
+	optionValue="code"
+></p-dropdown>
+
+<h2>Options</h2>
+<p-calendar class="routine-calendar" [(ngModel)]="date" [showTime]="true" inputId="timeonly"></p-calendar>
+
+<p-divider></p-divider>
+
+<h2>Event target</h2>
+<p-dropdown class="routine-dropdown" [options]="eventTargets" placeholder="Select event target" [group]="true">
+	<ng-template let-group pTemplate="group">
+		<div class="p-d-flex p-ai-center">
+			<svg-icon [key]="group.svg" class="p-mr-2"></svg-icon>
+			{{ group.label }}
+		</div>
+	</ng-template>
+	<ng-template let-item pTemplate="item">
+		<div class="p-d-flex p-ai-center p-ml-2">
+			<svg-icon [key]="item.svg" class="p-mr-2"></svg-icon>
+			{{ item.label }}
+		</div>
+	</ng-template>
+
+	<ng-template let-item pTemplate="selectedItem">
+		<div class="p-d-flex p-ai-center">
+			<svg-icon [key]="item.svg" class="p-mr-2"></svg-icon>
+			{{ item.label }}
+		</div>
+	</ng-template>
+</p-dropdown>
+
+<p-colorPicker [inline]="true" class="routine-color-picker"></p-colorPicker>
+<p-divider></p-divider>
+<button pButton label="Add" (click)="showItem = true"></button>
